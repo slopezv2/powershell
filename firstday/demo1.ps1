@@ -78,3 +78,30 @@ Get-History | Out-File .\history.txt
 Start-Transcript -Path .\transcript.txt -Append
 # Stop transcript
 Stop-Transcript
+# Powershell objects
+# See properties, members, methods of objects from specific command
+Get-Member
+help Get-Member
+# from Get-Service using Get-Member
+Get-Service | Get-Member
+# get specific fields
+Get-Service | Select-Object  Name,Status
+# Get services stopped 
+Get-Service | Where-Object Status -eq Stopped
+# Formatting as list, gives more details
+Get-Service | Where-Object Status -eq Stopped | format-list
+#info about Format-List
+help Format-List
+Get-Service | Format-List | more
+# using alias
+Get-Service | fl Name,Status|more
+#Format as table
+Get-Service | Format-Table | more
+# Autosize columns with format table
+Get-Service| Format-Table -AutoSize
+# Wrap text
+Get-Service | Format-Table -Wrap
+#Combining:
+Get-Service | Format-Table -Wrap -AutoSize
+# Grid view
+Get-Service |Out-Gridview
