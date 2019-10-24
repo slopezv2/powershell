@@ -53,3 +53,28 @@ Get-Help Get-Service -Full
 # Getting about files
 help *about*
 help about_Aliases
+# Help about Get-Command
+help Get-Command
+# List available commands with *DNS* in the name
+Get-Command -Name *DNS*
+# List commands by verb New
+Get-Command -Verb New
+# List commands by type
+Get-Command -CommandType Function
+# Some statistics based on the command
+Get-Command -CommandType Function | Measure-Object
+# Get from specific module
+Get-Command -Name *IP* -Module NetTCPIP
+# Create directory
+Md C:\Users\jajano\test
+mkdir C:\Users\jajano\test
+# Check history 
+Get-History
+# Run again a line from history
+Invoke-History -Id 10
+# Save history
+Get-History | Out-File .\history.txt
+# Start a transcription, save in path and append mode if file exists
+Start-Transcript -Path .\transcript.txt -Append
+# Stop transcript
+Stop-Transcript
