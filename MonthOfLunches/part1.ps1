@@ -31,4 +31,14 @@ Get-PSProvider
 #>
 #Currently connected drive
 Get-PSDrive
-#5.2. Understanding how the filesystem is organized
+# Change locations:
+Set-Location -Path C:\Windows
+# alias fro change location: cd
+cd C:\Users\selopez\Documents
+New-Item testFolder -ItemType Directory
+# alias mkdir
+# found something
+Get-ChildItem *.exe
+# Literal path, not regex available
+Get-ChildItem -LiteralPath C:\Users\selopez\file$.txt
+#5.6. Working with other providers
