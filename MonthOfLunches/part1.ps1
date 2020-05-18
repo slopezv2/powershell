@@ -41,4 +41,49 @@ New-Item testFolder -ItemType Directory
 Get-ChildItem *.exe
 # Literal path, not regex available
 Get-ChildItem -LiteralPath C:\Users\selopez\file$.txt
-#5.6. Working with other providers
+# going to the registry HKEY_CURRENT_USER
+Set-Location -Path hkcu:
+Set-Location -Path software
+Get-ChildItem
+Set-Location .\Microsoft\Windows
+Set-ItemProperty -Path dwm -PSProperty EnableAeroPeek -Value 0
+Set-Location C:\temp
+New-Item -Path C:\temp -Name test.txt -ItemType File
+# Chapter 6 
+# Pipeline
+dir | more
+Get-Process # gps
+Get-Service # gsv
+Get-EventLog Security -Newest 10 # admin privileges
+Get-Process | Export-Csv procs.csv -NoTypeInformation
+help Export-Csv
+# Import data
+Import-Csv procs.csv
+# Exporting and importing to xml
+Get-Process | Export-CliXML procs.xml
+Import-Clixml procs.xml
+# Looking for more import and export options
+Get-Command -Name *Import*
+# Diff method
+help diff 
+Compare-Object -ReferenceObject $(Get-Content test1.txt) -DifferenceObject $(Get-Content test2.txt)
+Compare-Object -ReferenceObject $(Get-Content test1.txt) -DifferenceObject $(Get-Content test2.txt) -IncludeEqual
+# Piping to a file or a printer
+dir > DirectoryList.txt
+## translated to:
+dir | Out-File DirectoryList.txt
+help Out-File
+# Gettting commands by verb
+Get-Command -Verb Out
+# Grid view available in Windows 
+Get-Service | Out-GridView
+# Converting to HTML
+Get-Service | ConvertTo-HTML > services.html
+# Stoping processes. Stop notepad
+Get-Process -name Notepad | Stop-Process
+# Preference level in PowerShell, to check what kind of commands are possible to run
+$confirmpreference
+# commands with confirmation, please do not say yes:
+Get-Service | Stop-Service -confirm
+# Whatif version
+get-process | stop-process –whatif
