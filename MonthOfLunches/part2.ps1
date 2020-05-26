@@ -30,4 +30,35 @@ Select-Object -Property *,
 @{label = 'Name'; expression = {$_.login}},
 @{n='Department'; e={$_.Dept}} |
 New-AdUser
-#9.6. Parenthetical commands
+## Chapter 10
+# Formatting system
+cd $pshome
+notepad .\DotNetTypes.format.ps1xml
+Get-Process | Get-Member
+# When there is not a default view
+Get-WmiObject Win32_OperatingSystem | Gm
+Get-WmiObject Win32_OperatingSystem
+# Formatting tables
+Format-Table # first way
+# Autosize:
+Get-WmiObject Win32_BIOS | Format-Table -autoSize
+Get-Process | Format-Table -property ID,Name,Responding -autoSize
+Get-Service | Sort-Object Status | Format-Table -groupBy Status
+#Preserve all the data with wrap
+Get-Service | Format-Table Name,Status,DisplayName -autoSize -wrap
+# Format list
+Get-Service | Format-List *
+# Formatting wide list: It's able to display only the values of a single property, so its -property
+# parameter accepts only one property name
+Get-Process | Format-Wide name -column 4 # Format to show 4 columns
+Get-Process | Format-Wide name -column 2
+# Format-Table and Format-List can use hash tables to create custom table columns or
+# custom list entries
+Get-Service | Format-Table @{name='ServiceName';Expression={$_.Name}},Status,DisplayName
+Get-Process | Format-Table Name,@{name='VM(GB)';expression={$_.VM / 1GB -as [int]}} -autosize
+# Extra properties
+Get-Process | Format-Table Name,@{name='VM(MB)'; expression={$_.VM / 1MB};formatstring='F2'; align='right'} -AutoSize
+#Do not do this because both outputs are merged
+Get-Process; Get-Service
+dir c:\windows\*.exe | Format-list Name,VersionInfo,@{Name="Size";Expression={$_.length}}
+#Chapter 11. Filtering and comparisons
