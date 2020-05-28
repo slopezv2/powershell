@@ -62,3 +62,8 @@ Get-Process | Format-Table Name,@{name='VM(MB)'; expression={$_.VM / 1MB};format
 Get-Process; Get-Service
 dir c:\windows\*.exe | Format-list Name,VersionInfo,@{Name="Size";Expression={$_.length}}
 #Chapter 11. Filtering and comparisons
+# Filtering using the same command, when this is supported
+Get-Service -Name e*,*s*
+Get-ADComputer -Filter "Name -like '*480*'"
+# Second option: use Where-Object
+# Get-WmiObject may require other type of methodoly to filter
