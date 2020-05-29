@@ -67,3 +67,15 @@ Get-Service -Name e*,*s*
 Get-ADComputer -Filter "Name -like '*480*'"
 # Second option: use Where-Object
 # Get-WmiObject may require other type of methodoly to filter
+Get-Service | Where-Object -filter { $_.Status -eq 'Running' }
+Get-Service -computername (Get-Content c:\names.txt | Where-Object -filter { $_ -notlike '*dc' }) | Where-Object -filter { $_.Status -eq 'Running' }
+##Chapter 12. A practical interlude
+# Checking in the gallery for commands
+Find-Module *privilege* | format-table -Auto
+# install module
+Install-Module PoshPrivilege
+# see content
+Get-Command -Module PoshPrivilege | Format-Table -Auto
+# Help to see specific command
+Get-Help Add-Privilege
+Get-Help Add-Privilege -examples
